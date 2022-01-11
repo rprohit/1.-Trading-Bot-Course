@@ -6,5 +6,3 @@ def get_contracts() :
     for contract in response_object.json():
         contracts.append(contract['symbol'])
     return contracts
-
-print(get_contracts())

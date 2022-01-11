@@ -1,7 +1,10 @@
+import pprint
 import tkinter as tk
 import logging
 
-from bitmex import get_contracts
+import config
+from connectors.binance_future import BinanceFuturesClient
+from connectors.bitmex import get_contracts
 
 logger = logging.getLogger()
 
@@ -21,19 +24,9 @@ logger.addHandler(file_handler)
 
 
 if __name__ == '__main__':
-    bitmex_contract = get_contracts()
+    binance = BinanceFuturesClient(config.API_KEY,config.API_SECRET,False)
+    #pprint.pprint(binance.get_balances())
+    #pprint.pprint(binance.place_order("BTCUSDT","BUY",0.01,"LIMIT",20000,"GTC"))
+    #pprint.pprint(binance.cancel_order(40310794776,"BTCUSDT"))
     root = tk.Tk()
-    root.config(bg='gray12')
-    i = 0
-    j = 0
-    calibri_font = ("Calibri",11,"normal")
-    for contract in bitmex_contract:
-        label_widget = tk.Label(root,text=contract,bg='gray12',fg='SteelBlue1',width=13,font=calibri_font)
-        label_widget.grid(row=i,column=j,sticky='ew')
-        if i == 4:
-            j+=1
-            i=0
-        else:
-            i+=1
-
     root.mainloop()
